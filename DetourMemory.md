@@ -1,0 +1,59 @@
+Okay. This is what has happened
+
+1. Run test program
+	program has been modified to print memory address
+	of the variable I want to change
+```
+990x7ffce4a55fec
+```
+	Possible bug I dont know why there is 990
+
+2. Use top to find PID
+
+3. cat /proc/<pid>/maps
+
+4. Confirm that the printed address is within the region that is rw
+and in userspace?
+	
+```
+55d4baea2000-55d4baea3000 rw-p 00003000 fe:01 28968129                   /home/marcus/Documents/RE/venus/venus/t
+
+```
+
+PID = 364534
+
+They do not coincide
+
+Either something is wrong with 
+1. Pointer vs VFS interaction
+2. Misunderstanding the regions, 2 columns I dont know 
+3. Possible permissions?
+
+It was 2.
+
+I misunderstood global vs local variables.
+Local variables, even when used in int main() is stored on stack
+Global would be rw?
+
+rechecking
+
+Stack region
+```
+7ffce4a37000-7ffce4a58000 rw-p 00000000 00:00 0                          [stack]
+```
+coincides with 
+
+```
+0x7ffce4a55fec
+
+```
+Reading that address with 
+```
+dd bs=1 skip="$((0x556d62906000))" count=4 if="/proc/$pid/mem" |od -An -vtu4
+
+dd bs=1 skip="$((0x7ffce4a55fec))" count=4 if="/proc/364534/mem" |od -An -vtu4
+
+```
+
+Holy poes it coincides, it was on the top of the stack
+gives 22?
