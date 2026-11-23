@@ -1,39 +1,9 @@
-SETTING UP GIT
+# /proc VFS
 
-```
-git init -b main 
-git add .
-git commit -m "first commit"
-git config --global user.email "user@email.com"
-git branch -M main
-git remote add origin https://github.com/MarcusKoen/venus.git
-git push -u origin main
-```
+Apparently linux mounts a Virtual File System (VFS) under /proc/ with 
+numerical Process Identifiers (PIDs) as directories. Quite based.
+Need to have appropriate permissions to access PIDs and consequently
+process names, since only child objects of parent can access. The work-
+around is running venus with sudo.
 
-GENERATING SSH
-```
-ssh-keygen -t ed25519 -C "your_email@example.com"
-	USE PASSPHRASE OR NOT
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-```
-ADD SSH TO GITHUB
-```
-cat ~/.ssh/id_ed25519.pub
-```
-GitHub → Settings → SSH and GPG keys → New SSH key.
-
-UPDATE AND PUSH ORIGIN
-```
-git remote set-url origin git@github.com:MarcusKoen/venus.git
-git push -u origin main
-```
-
-
-General workflow
-
-```
-git add
-git commit -m "note"
-git push -u origin main
-```
+1. Iterate through /proc/
