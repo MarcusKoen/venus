@@ -25,14 +25,24 @@ void displayProcName(int PID)
 {
     // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 
-
     // String manipulation add PID to /proc/
     std::string path = "/proc/";
     path.append(std::to_string(PID));
 
     // String manipulation add /comm to /proc/<pid>
+    path.append("/comm");
 
-    cout << path;
+    // Specify the file to be opened
+    std::ifstream file(path);
+    std::string l;
+
+    // Iterate through and print all lines of the comm file
+    while(std::getline(file, l))
+    {
+        cout << l ;
+    }
+
+    file.close();
 
 }
 
@@ -41,17 +51,6 @@ int main()
 
     //displayProcs();
 
-/*
-    std::ifstream file("/proc/3/comm");
-    std::string l;
-
-    while(std::getline(file, l))
-    {
-        cout << l ;
-    }
-
-    file.close();
-*/
-    displayProcName(4);
+    displayProcName(342309);
     return 0;
 }

@@ -268,6 +268,15 @@ QT_ENABLE_QML_DEBUG:BOOL=ON
 QT_QMAKE_EXECUTABLE:FILEPATH=/home/marcus/Qt/6.12.0/gcc_64/bin/qmake
 
 //Value Computed by CMake
+TestProgram_BINARY_DIR:STATIC=/home/marcus/Documents/RE/venus/venus/build/Desktop_Qt_6_12_0_Debug/TestProgram
+
+//Value Computed by CMake
+TestProgram_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+TestProgram_SOURCE_DIR:STATIC=/home/marcus/Documents/RE/venus/venus/TestProgram
+
+//Value Computed by CMake
 venus_BINARY_DIR:STATIC=/home/marcus/Documents/RE/venus/venus/build/Desktop_Qt_6_12_0_Debug
 
 //Value Computed by CMake
@@ -442,5 +451,5 @@ QTCREATOR_CMAKE_HELPER_DIRECTORY:INTERNAL=/home/marcus/Documents/RE/venus/venus/
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
-_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
+_GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/tmp
 
