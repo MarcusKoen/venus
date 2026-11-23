@@ -2,30 +2,56 @@
 #include <filesystem>
 #include <fstream>
 using namespace std;
-
-int main()
+// TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
+void displayProcs()
 {
+    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
+
 
     // Path to /proc/
-    //std::filesystem::path p = "/proc/1/";
-    std::filesystem::path p = "/proc/1/cmdline";
-/*
+    std::filesystem::path p = "/proc";
+
     // Recursively iterate through the path and print directories
     for(auto it : std::filesystem::recursive_directory_iterator(p))
     {
         cout << it.path().filename();
     }
 
-*/
 
-    std::ifstream file("/proc/3/cmdline");
+
+}
+
+void displayProcName(int PID)
+{
+    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
+
+
+    // String manipulation add PID to /proc/
+    std::string path = "/proc/";
+    path.append(std::to_string(PID));
+
+    // String manipulation add /comm to /proc/<pid>
+
+    cout << path;
+
+}
+
+int main()
+{
+
+    //displayProcs();
+
+/*
+    std::ifstream file("/proc/3/comm");
     std::string l;
+
     while(std::getline(file, l))
     {
         cout << l ;
     }
 
     file.close();
-
+*/
+    displayProcName(4);
     return 0;
 }
