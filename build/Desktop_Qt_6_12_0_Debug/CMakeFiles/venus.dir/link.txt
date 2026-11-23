@@ -1,0 +1,1 @@
+/bin/g++ -g CMakeFiles/venus.dir/main.cpp.o -o venus
