@@ -57,6 +57,66 @@ Sample layout
 7fff9b577000-7fff9b598000 rw-p 00000000 00:00 0                          [stack]
 
 ```
+# Detour: Memory 
 
 I just had an idea
 	Only look at sections that has rwXX
+Another idea
+How do I actually inspect the eranges listed by /map?
+
+Ended up reading 
+https://man7.org/tlpi/
+https://man7.org/linux/man-pages/man2/process_vm_readv.2.html#SEE_ALSO
+
+7fff9b577000-7fff9b598000 rw-p 00000000 00:00 0 
+End-Start = whole number = 0x1000 pages = 4096 bytes = 4kB
+Rewrite
+	Each region is 0x1000 = 4kB = 4096 bytes
+Breakind this down
+```
+7fff9b577000
+```
+12 hex characters
+	12 * 4 = 48 BIT memory
+This is also called canonical memory
+
+https://simonis.github.io/Memory/
+
+This might become an issue
+
+TODO :
+
+Address Space Layout Randomization (ASLR) 
+
+
+This address
+
+```
+559f9fed3000-559f9fed4000 rw-p 00003000 fe:01 28968082                   /home/marcus/Documents/RE/venus/venus/t
+```
+most likely contains the global variable I need to change.
+We know this is 4096 bytes = 4kB
+Before I ask how to iterate through
+WTF does one of these addresses contain
+e.g.
+```
+559f9fed3000
+```
+https://unix.stackexchange.com/questions/489297/how-to-get-value-of-a-memory-address-using-command
+
+There are other ways of doing this
+
+1. GDB
+2. Current proc/map proc/mem
+3. Kernal level
+ALSO TODO explain base, offset
+
+
+//dd bs=1 skip="$((0x556d62906000))" count=4 if="/proc/$pid/mem" |od -An -vtu4
+    //gdb --batch -ex 'x/u 0x7fffffffeb58' -p "$pid"
+I know this displays 32 bit unsigned int but its garbage to me
+2152878208
+
+Again to reiterate
+there are 1000 pages, each 4096 bytes
+

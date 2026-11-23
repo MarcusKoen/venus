@@ -10,7 +10,8 @@ int main() {
 
 int choice = 22;
 
-cout << "Enter";
+int* ptr  = &choice;
+cout << ptr;
 
 cin >> choice;
 
