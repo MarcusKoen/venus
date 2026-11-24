@@ -57,3 +57,15 @@ dd bs=1 skip="$((0x7ffce4a55fec))" count=4 if="/proc/364534/mem" |od -An -vtu4
 
 Holy poes it coincides, it was on the top of the stack
 gives 22?
+
+
+Wait this is a false victory, I still need to iterate through the entire section
+
+Iterate through ALL regions not just stack
+add constant variable to test
+run current iteration
+only output with if statement translation to 32 bit int
+
+I just realized this is pointless dd command if I cant use it with C++ fns
+
+
