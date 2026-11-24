@@ -13,12 +13,9 @@ using namespace std;
 
 void displayProcName(std::vector<int> listPID, int size)
 {
-    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
-
-
     for(int i = 0; i < size; i++)
     {
-        // String manipulation add PID to /proc/
+        // String manipulation add current PID to /proc/
         std::string path = "/proc/";
         path.append(std::to_string(listPID[i]));
 
@@ -26,6 +23,8 @@ void displayProcName(std::vector<int> listPID, int size)
         path.append("/comm");
 
         // Specify the file to be opened
+        // Using ifstream/ofstream might be inefficient here,
+        // should most likely use open syscall, but it is fine for now
         std::ifstream file(path);
         std::string l;
 
@@ -42,30 +41,33 @@ void displayProcName(std::vector<int> listPID, int size)
 
 void displayProcesses()
 {
-    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
-
     // Path to /proc/
     std::filesystem::path p = "/proc/";
 
     // Temp variable to store current directory
     std::string t;
 
+    // List to hold all alphanumeric PIDs
     std::vector<int> listPID;
 
     // Iterate through the path and print directories
-    for(auto it : std::filesystem::directory_iterator(p))
+    // for(auto it : std::filesystem::directory_iterator(p))
+    // this line wastes memory since it copies the directories instead of RO
+    for(const auto& it : std::filesystem::directory_iterator(p))
     {
         t = it.path().filename();
 
-        // Only print the process if it contains alphanumerical PID
+        // Only add process to list if it contains alphanumeric PID
         if(t.find_first_of("0123456789") != std::string::npos)
         {
+            // Push int representation of string for later manipulation
             listPID.push_back(std::stoi(t));
 
         }
 
     }
 
+    // Call function to resolve and print PID names
     displayProcName(listPID, listPID.size());
 }
 
@@ -73,8 +75,7 @@ void displayProcesses()
 
 void displayRegions(int PID)
 {
-    //cat /proc/23217/maps
-    // Need to do similar iteration
+    // TODO: same issue with ofstream/instream
 
     // String manipulation add PID to /proc/
     std::string path = "/proc/";
@@ -148,6 +149,15 @@ int main()
 
 
     displayProcesses();
+
+    int choicePID = -1;
+
+    cout << endl << "Enter PID to view memory region:" << endl;
+    cout << "Note only the region containing local variables on stack will be displayed." << endl;
+    cin >> choicePID;
+
+    displayRegions(choicePID);
+
 
     return 0;
 }
