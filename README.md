@@ -120,3 +120,5 @@ I know this displays 32 bit unsigned int but its garbage to me
 Again to reiterate
 there are 1000 pages, each 4096 bytes
 
+But will the current method work for floating point as well?
+

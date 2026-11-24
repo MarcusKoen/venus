@@ -11,34 +11,6 @@
 using namespace std;
 // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 
-void displayProcName(std::vector<int> listPID, int size)
-{
-    for(int i = 0; i < size; i++)
-    {
-        // String manipulation add current PID to /proc/
-        std::string path = "/proc/";
-        path.append(std::to_string(listPID[i]));
-
-        // String manipulation add /comm to /proc/<pid>
-        path.append("/comm");
-
-        // Specify the file to be opened
-        // Using ifstream/ofstream might be inefficient here,
-        // should most likely use open syscall, but it is fine for now
-        std::ifstream file(path);
-        std::string l;
-
-        // Iterate through and print all lines of the comm file
-        while(std::getline(file, l))
-        {
-            cout << "PID: " << listPID[i] << ", Name: " << l << endl;
-        }
-
-        file.close();
-    }
-}
-
-
 void displayProcesses()
 {
     // Path to /proc/
@@ -67,8 +39,31 @@ void displayProcesses()
 
     }
 
-    // Call function to resolve and print PID names
-    displayProcName(listPID, listPID.size());
+    // Resolve and print PID names
+    for(int i = 0; i < listPID.size(); i++)
+    {
+        // String manipulation add current PID to /proc/
+        std::string path = "/proc/";
+        path.append(std::to_string(listPID[i]));
+
+        // String manipulation add /comm to /proc/<pid>
+        path.append("/comm");
+
+        // Specify the file to be opened
+        // Using ifstream/ofstream might be inefficient here,
+        // should most likely use open syscall, but it is fine for now
+        std::ifstream file(path);
+        std::string l;
+
+        // Iterate through and print all lines of the comm file
+        while(std::getline(file, l))
+        {
+            cout << "PID: " << listPID[i] << ", Name: " << l << endl;
+        }
+
+        file.close();
+    }
+
 }
 
 
@@ -85,7 +80,6 @@ void searchValue(int PID, uint64_t beg, uint64_t end)
     int fd = open(path.c_str(),O_RDONLY);
     cout << "fd = " << fd << endl;
 
-    // This is hard coded but it works
     off_t loc = beg;
     off_t offset = lseek(fd, loc, SEEK_SET);
     cout << "lseek returns: " << offset << endl;
@@ -95,13 +89,16 @@ void searchValue(int PID, uint64_t beg, uint64_t end)
     std::vector<std::byte> buf(count);
     ssize_t n = read(fd, buf.data(), count);
 
-
     int converted;
     for(int i = 0 ; i<count; i++)
     {
         std::memcpy(&converted, buf.data() + i, sizeof(converted));
         if(converted == 99)
+        {
             cout << static_cast<std::uintptr_t>(loc) + i << endl;
+            ssize_t m = write(fd, 9999, );
+
+        }
 
     }
 
@@ -109,11 +106,6 @@ void searchValue(int PID, uint64_t beg, uint64_t end)
 
 
 }
-//7ffe8f094ae4
-
-// or
-//7FFCF9E2223C
-
 
 void extractRegions(int PID, std::string region)
 {
@@ -163,11 +155,7 @@ void displayRegions(int PID)
 
 }
 
-void checkAddress()
-{
-
-}
-
+//void writeValue(int PID, int value)
 
 int main()
 {
@@ -183,6 +171,7 @@ int main()
     cin >> choicePID;
 
     displayRegions(choicePID);
+
 
 
 
