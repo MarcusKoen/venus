@@ -7,6 +7,7 @@
 #include <fcntl.h>// for open(2)
 #include <unistd.h>// for read(2), lseek(2)
 #include <vector>
+#include <cstring>// for memcpy
 using namespace std;
 // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 void displayProcs()
@@ -98,16 +99,18 @@ int main()
     int fd = open(path.c_str(),O_RDONLY);
     cout << "fd = " << fd << endl;
 
-    off_t loc = 140726292865024;
+    off_t loc = 140726292991340;
     off_t offset = lseek(fd, loc, SEEK_SET);
     cout << "lseek returns: " << offset << endl;
 
-    std::size_t count = 135168; //std::size_t prevent overflow
-    ? buf[count]; //+1 for null byte
-    ssize_t n = read(fd, &buf, count);
-    cout << "read returns: " << n << endl;
+    std::size_t count = 4096; //std::size_t prevent overflow
+    std::vector<std::byte> buf(count);
+    ssize_t n = read(fd, buf.data(), count);
 
-    cout << buf;
+
+    int converted;
+    std::memcpy(&converted, buf.data(), sizeof(converted));
+    cout << converted;
 
     close(fd);
 

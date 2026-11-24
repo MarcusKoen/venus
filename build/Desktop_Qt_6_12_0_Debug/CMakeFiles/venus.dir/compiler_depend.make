@@ -68,12 +68,15 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
   /usr/include/c++/14/bits/sstream.tcc \
   /usr/include/c++/14/bits/std_abs.h \
   /usr/include/c++/14/bits/stl_algobase.h \
+  /usr/include/c++/14/bits/stl_bvector.h \
   /usr/include/c++/14/bits/stl_construct.h \
   /usr/include/c++/14/bits/stl_function.h \
   /usr/include/c++/14/bits/stl_iterator.h \
   /usr/include/c++/14/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/14/bits/stl_iterator_base_types.h \
   /usr/include/c++/14/bits/stl_pair.h \
+  /usr/include/c++/14/bits/stl_uninitialized.h \
+  /usr/include/c++/14/bits/stl_vector.h \
   /usr/include/c++/14/bits/streambuf.tcc \
   /usr/include/c++/14/bits/streambuf_iterator.h \
   /usr/include/c++/14/bits/string_view.tcc \
@@ -82,6 +85,7 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
   /usr/include/c++/14/bits/uses_allocator.h \
   /usr/include/c++/14/bits/uses_allocator_args.h \
   /usr/include/c++/14/bits/utility.h \
+  /usr/include/c++/14/bits/vector.tcc \
   /usr/include/c++/14/bits/version.h \
   /usr/include/c++/14/cctype \
   /usr/include/c++/14/cerrno \
@@ -92,6 +96,7 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
   /usr/include/c++/14/cstdint \
   /usr/include/c++/14/cstdio \
   /usr/include/c++/14/cstdlib \
+  /usr/include/c++/14/cstring \
   /usr/include/c++/14/ctime \
   /usr/include/c++/14/cwchar \
   /usr/include/c++/14/cwctype \
@@ -129,6 +134,7 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
   /usr/include/c++/14/tuple \
   /usr/include/c++/14/type_traits \
   /usr/include/c++/14/typeinfo \
+  /usr/include/c++/14/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -150,6 +156,8 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/unistd.h \
   /usr/include/wchar.h \
@@ -277,8 +285,6 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
-/usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h:
-
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++locale.h:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++io.h:
@@ -371,13 +377,33 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
-/usr/include/c++/14/bits/streambuf_iterator.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/14/bits/streambuf_iterator.h:
+
+/usr/include/c++/14/ext/type_traits.h:
+
 /usr/include/c++/14/bits/stl_pair.h:
+
+/usr/include/c++/14/bits/stl_bvector.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+
+/usr/include/c++/14/iostream:
 
 /usr/include/c++/14/bits/sstream.tcc:
 
@@ -411,15 +437,7 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/bits/localefwd.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
-
-/usr/include/x86_64-linux-gnu/bits/errno.h:
-
 /usr/include/c++/14/bits/locale_facets_nonio.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/c++/14/bits/locale_facets.tcc:
 
 /usr/include/c++/14/bits/streambuf.tcc:
 
@@ -453,12 +471,6 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/bits/basic_ios.tcc:
 
-/usr/include/c++/14/bits/basic_ios.h:
-
-/usr/include/c++/14/bits/stringfwd.h:
-
-/usr/include/c++/14/bits/basic_string.h:
-
 /usr/include/c++/14/bits/cpp_type_traits.h:
 
 /usr/include/c++/14/cctype:
@@ -476,6 +488,14 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
 
 /usr/include/c++/14/bits/chrono.h:
+
+/usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h:
+
+/usr/include/c++/14/cstring:
+
+/usr/include/c++/14/bits/basic_ios.h:
+
+/usr/include/c++/14/bits/stl_uninitialized.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
@@ -531,8 +551,6 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/endian.h:
 
-/usr/include/c++/14/bits/string_view.tcc:
-
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
 /usr/include/c++/14/backward/binders.h:
@@ -548,10 +566,6 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 /usr/include/c++/14/bits/shared_ptr_base.h:
 
 /usr/include/c++/14/bits/charconv.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/include/c++/14/bits/exception.h:
 
 /usr/include/features-time64.h:
 
@@ -625,6 +639,12 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/bits/memoryfwd.h:
 
+/usr/include/c++/14/bits/string_view.tcc:
+
+/usr/include/c++/14/bits/basic_string.h:
+
+/usr/include/c++/14/bits/stringfwd.h:
+
 /usr/include/c++/14/bits/uses_allocator.h:
 
 /usr/include/c++/14/bits/memory_resource.h:
@@ -636,6 +656,8 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 /home/marcus/Documents/RE/venus/venus/main.cpp:
 
 /usr/include/c++/14/locale:
+
+/usr/include/c++/14/bits/vector.tcc:
 
 /usr/lib/linux/uapi/x86/asm/posix_types_64.h:
 
@@ -653,15 +675,21 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/debug/debug.h:
 
+/usr/include/strings.h:
+
 /usr/include/c++/14/ext/atomicity.h:
 
 /usr/include/c++/14/ext/concurrence.h:
 
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/c++/14/bits/exception.h:
+
+/usr/include/string.h:
+
 /usr/include/c++/14/bits/unique_ptr.h:
 
 /usr/include/c++/14/ext/string_conversions.h:
-
-/usr/include/c++/14/ext/type_traits.h:
 
 /usr/include/c++/14/bits/quoted_string.h:
 
@@ -670,6 +698,10 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 /usr/include/c++/14/cstddef:
 
 /usr/include/c++/14/fstream:
+
+/usr/include/linux/errno.h:
+
+/usr/include/ctype.h:
 
 /usr/include/c++/14/bits/cxxabi_forced.h:
 
@@ -685,15 +717,13 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/iosfwd:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
-
-/usr/include/c++/14/iostream:
-
 /usr/include/c++/14/new:
 
 /usr/include/c++/14/bits/stl_function.h:
 
 /usr/include/c++/14/stdexcept:
+
+/usr/include/c++/14/bits/stl_vector.h:
 
 /usr/include/wctype.h:
 
@@ -709,6 +739,12 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/c++/14/typeinfo:
 
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
+
+/usr/include/c++/14/bits/locale_facets.tcc:
+
+/usr/include/c++/14/vector:
+
 /usr/lib/linux/uapi/x86/asm/bitsperlong.h:
 
 /usr/include/c++/14/bits/invoke.h:
@@ -723,10 +759,6 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/linux/close_range.h:
 
-/usr/include/ctype.h:
-
-/usr/include/linux/errno.h:
-
 /usr/include/linux/falloc.h:
 
 /usr/include/c++/14/bits/istream.tcc:
@@ -735,7 +767,13 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 
 /usr/include/locale.h:
 
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/c++/14/type_traits:
+
+/usr/include/stdc-predef.h:
 
 /usr/include/stdint.h:
 
@@ -762,17 +800,3 @@ CMakeFiles/venus.dir/main.cpp.o: /home/marcus/Documents/RE/venus/venus/main.cpp 
 /usr/include/c++/14/system_error:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/x86_64-linux-gnu/bits/fcntl.h:
-
-/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
-
-/usr/include/c++/14/type_traits:
-
-/usr/include/stdc-predef.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:

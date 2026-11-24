@@ -5,12 +5,12 @@ using namespace std;
 int main() {
     // Program logic goes here
 
-	int h = 99;
-    std::cout << h;
+int h = 99;
+std::cout << h;
 
 int choice = 22;
 
-int* ptr  = &choice;
+int* ptr  = &h;
 cout << ptr;
 
 cin >> choice;
