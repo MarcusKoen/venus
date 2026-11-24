@@ -72,7 +72,66 @@ void displayProcesses()
 }
 
 
+void searchValue(int PID, uint64_t beg, uint64_t end)
+{
+    // Get file descriptor
+    // This pretty much gives the same as displayRegions,
+    // but not relying on std::ifstream/std::ostream
+    std::string path = "/proc/";
+    path.append(to_string(PID));
 
+    path.append("/mem");
+
+    int fd = open(path.c_str(),O_RDONLY);
+    cout << "fd = " << fd << endl;
+
+    // This is hard coded but it works
+    off_t loc = beg;
+    off_t offset = lseek(fd, loc, SEEK_SET);
+    cout << "lseek returns: " << offset << endl;
+
+
+    std::size_t count = end - beg; //std::size_t prevent overflow
+    std::vector<std::byte> buf(count);
+    ssize_t n = read(fd, buf.data(), count);
+
+
+    int converted;
+    for(int i = 0 ; i<count; i++)
+    {
+        std::memcpy(&converted, buf.data() + i, sizeof(converted));
+        if(converted == 99)
+            cout << static_cast<std::uintptr_t>(loc) + i << endl;
+
+    }
+
+    close(fd);
+
+
+}
+//7ffe8f094ae4
+
+// or
+//7FFCF9E2223C
+
+
+void extractRegions(int PID, std::string region)
+{
+    std::string beg, end;
+    beg = region.substr(0,12);
+    end = region.substr(13,12);
+
+    uint64_t b, e;
+
+    b = std::stoul(beg,nullptr,16);
+    e = std::stoul(end, nullptr, 16);
+
+    cout << "Start range: "<< b  << endl;
+    cout << "End range: " << e << endl;
+
+    searchValue(PID, b, e);
+
+}
 void displayRegions(int PID)
 {
     // TODO: same issue with ofstream/instream
@@ -88,7 +147,6 @@ void displayRegions(int PID)
     std::ifstream file(path);
     std::string l;
 
-    // NEED TO HANDLE THE BEGIN AND END REGION AFTER READING
     // Iterate through and print all lines of the comm file
     while(std::getline(file, l))
     {
@@ -96,12 +154,11 @@ void displayRegions(int PID)
         // in other regions. CRITICAL TODO
         if(l.find("[stack]") != std::string::npos)
         {
-
-            cout << l << endl;
+            extractRegions(PID, l);
         }
 
     }
-
+    // TODO check concurrency with open and close
     file.close();
 
 }
@@ -111,45 +168,12 @@ void checkAddress()
 
 }
 
-void searchValue(int PID)
-{
-    // Get file descriptor
-    // This pretty much gives the same as displayRegions,
-    // but not relying on std::ifstream/std::ostream
-    std::string path = "/proc/100018/mem";
 
-    int fd = open(path.c_str(),O_RDONLY);
-    cout << "fd = " << fd << endl;
-
-    // This is hard coded but it works
-    off_t loc = 140726292865024;
-    off_t offset = lseek(fd, loc, SEEK_SET);
-    cout << "lseek returns: " << offset << endl;
-
-
-    std::size_t count = 135168; //std::size_t prevent overflow
-    std::vector<std::byte> buf(count);
-    ssize_t n = read(fd, buf.data(), count);
-
-
-    int converted;
-    for(int i = 0 ; i<135168; i++)
-    {
-        std::memcpy(&converted, buf.data() + i, sizeof(converted));
-        if(converted == 22)
-            cout << static_cast<std::uintptr_t>(loc) + i << endl;
-
-    }
-
-    close(fd);
-
-
-}
 int main()
 {
     //displayRegions(100018);
 
-/*
+
     displayProcesses();
 
     int choicePID = -1;
@@ -159,26 +183,8 @@ int main()
     cin >> choicePID;
 
     displayRegions(choicePID);
-*/
 
-    std::string test;
-    test = "7ffd94e44000-7ffd94e65000 rw-p 00000000 00:00 0";
-    std::string beg, end;
 
-    beg = test.substr(0,12);
-    end = test.substr(13,12);
 
-    uint64_t b, e;
-    //cout << beg << endl;
-    b = std::stoul(beg,nullptr,16);
-    cout << b << endl;
-
-    /*Proposal:
-     * 12 hex 1 - 12 hex
-     * begin = 0-11
-     * end = 13-24
-     *
-     *
-     */
     return 0;
 }
