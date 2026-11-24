@@ -99,18 +99,25 @@ int main()
     int fd = open(path.c_str(),O_RDONLY);
     cout << "fd = " << fd << endl;
 
-    off_t loc = 140726292991340;
+    // This is hard coded but it works
+    off_t loc = 140726292865024;
     off_t offset = lseek(fd, loc, SEEK_SET);
     cout << "lseek returns: " << offset << endl;
 
-    std::size_t count = 4096; //std::size_t prevent overflow
+
+    std::size_t count = 135168; //std::size_t prevent overflow
     std::vector<std::byte> buf(count);
     ssize_t n = read(fd, buf.data(), count);
 
 
     int converted;
-    std::memcpy(&converted, buf.data(), sizeof(converted));
-    cout << converted;
+    for(int i = 0 ; i<135168; i++)
+    {
+        std::memcpy(&converted, buf.data() + i, sizeof(converted));
+        if(converted == 22)
+            cout << static_cast<std::uintptr_t>(loc) + i << endl;
+
+    }
 
     close(fd);
 
