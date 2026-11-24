@@ -1,12 +1,12 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
-#include <algorithm>
-
-#define _GNU_SOURCE
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/uio.h>
+#include <fcntl.h>// for open(2)
+#include <unistd.h>// for read(2), lseek(2)
+#include <vector>
 using namespace std;
 // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 void displayProcs()
@@ -49,7 +49,6 @@ void displayProcName(int PID)
     }
 
     file.close();
-
 }
 
 
@@ -91,24 +90,27 @@ void checkAddress()
 }
 int main()
 {
+    displayRegions(100018);
+    // Get file descriptor
+    // This pretty much gives the same as displayRegions,
+    // but not relying on std::ifstream/std::ostream
+    std::string path = "/proc/100018/mem";
+    int fd = open(path.c_str(),O_RDONLY);
+    cout << "fd = " << fd << endl;
 
-   // displayRegions(23217);
-    char          buf1[10];
-    char          buf2[10];
-    pid_t         pid = 23217;    /* PID of remote process */
-    ssize_t       nread;
-    struct iovec  local[2];
-    struct iovec  remote[1];
+    off_t loc = 140726292865024;
+    off_t offset = lseek(fd, loc, SEEK_SET);
+    cout << "lseek returns: " << offset << endl;
 
-    local[0].iov_base = buf1;
-    local[0].iov_len = 10;
-    local[1].iov_base = buf2;
-    local[1].iov_len = 10;
-    remote[0].iov_base = (void *) 0x10000;
-    remote[0].iov_len = 20;
+    std::size_t count = 135168; //std::size_t prevent overflow
+    ? buf[count]; //+1 for null byte
+    ssize_t n = read(fd, &buf, count);
+    cout << "read returns: " << n << endl;
 
-    nread = process_vm_readv(pid, local, 2, remote, 1, 0);
+    cout << buf;
 
-    cout << buf2[1];
+    close(fd);
+
+
     return 0;
 }
