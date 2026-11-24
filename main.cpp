@@ -88,6 +88,7 @@ void displayRegions(int PID)
     std::ifstream file(path);
     std::string l;
 
+    // NEED TO HANDLE THE BEGIN AND END REGION AFTER READING
     // Iterate through and print all lines of the comm file
     while(std::getline(file, l))
     {
@@ -95,6 +96,7 @@ void displayRegions(int PID)
         // in other regions. CRITICAL TODO
         if(l.find("[stack]") != std::string::npos)
         {
+
             cout << l << endl;
         }
 
@@ -147,7 +149,7 @@ int main()
 {
     //displayRegions(100018);
 
-
+/*
     displayProcesses();
 
     int choicePID = -1;
@@ -157,7 +159,26 @@ int main()
     cin >> choicePID;
 
     displayRegions(choicePID);
+*/
 
+    std::string test;
+    test = "7ffd94e44000-7ffd94e65000 rw-p 00000000 00:00 0";
+    std::string beg, end;
 
+    beg = test.substr(0,12);
+    end = test.substr(13,12);
+
+    uint64_t b, e;
+    //cout << beg << endl;
+    b = std::stoul(beg,nullptr,16);
+    cout << b << endl;
+
+    /*Proposal:
+     * 12 hex 1 - 12 hex
+     * begin = 0-11
+     * end = 13-24
+     *
+     *
+     */
     return 0;
 }
