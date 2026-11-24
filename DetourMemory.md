@@ -69,3 +69,38 @@ only output with if statement translation to 32 bit int
 I just realized this is pointless dd command if I cant use it with C++ fns
 
 
+# References for research
+1. man pages
+```
+proc(5)
+lseek(2)
+open(2)
+read(2)
+write(2)
+process_vm_readv(2)
+pread
+```
+Apparently use seek, open, read, write i.o std::ifstream/std::ofstream
+
+2. Linux Kernel Documentation
+Kernel procfs documentation
+```
+Documentation/filesystems/proc.rst
+```
+Linux Virtual Memory/mm documentation
+```
+Documentation/admin-guide/mm/pagemap.rst and Documentation/mm/):
+```
+3. Sys Prog Books
+The Linux Programming Interface by Michael Kerrisk:
+Linux System Programming by Robert Love
+4. File discriptors
+
+# File Descriptors
+Just an integer, unique to proccess.
+Also used for non-files like drivers and sockets.
+https://www.youtube.com/watch?v=o9iZucYSkQA
+
+```
+man 2 open
+```

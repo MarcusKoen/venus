@@ -10,47 +10,65 @@
 #include <cstring>// for memcpy
 using namespace std;
 // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
-void displayProcs()
+
+void displayProcName(std::vector<int> listPID, int size)
 {
     // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 
+
+    for(int i = 0; i < size; i++)
+    {
+        // String manipulation add PID to /proc/
+        std::string path = "/proc/";
+        path.append(std::to_string(listPID[i]));
+
+        // String manipulation add /comm to /proc/<pid>
+        path.append("/comm");
+
+        // Specify the file to be opened
+        std::ifstream file(path);
+        std::string l;
+
+        // Iterate through and print all lines of the comm file
+        while(std::getline(file, l))
+        {
+            cout << "PID: " << listPID[i] << ", Name: " << l << endl;
+        }
+
+        file.close();
+    }
+}
+
+
+void displayProcesses()
+{
+    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
 
     // Path to /proc/
-    std::filesystem::path p = "/proc";
+    std::filesystem::path p = "/proc/";
 
-    // Recursively iterate through the path and print directories
-    for(auto it : std::filesystem::recursive_directory_iterator(p))
+    // Temp variable to store current directory
+    std::string t;
+
+    std::vector<int> listPID;
+
+    // Iterate through the path and print directories
+    for(auto it : std::filesystem::directory_iterator(p))
     {
-        cout << it.path().filename();
+        t = it.path().filename();
+
+        // Only print the process if it contains alphanumerical PID
+        if(t.find_first_of("0123456789") != std::string::npos)
+        {
+            listPID.push_back(std::stoi(t));
+
+        }
+
     }
 
-
-
+    displayProcName(listPID, listPID.size());
 }
 
-void displayProcName(int PID)
-{
-    // TODO BOUNDARY VALUE CHECKS OPENING ADN CLOSING FILES CHECK EXISTENCE
-
-    // String manipulation add PID to /proc/
-    std::string path = "/proc/";
-    path.append(std::to_string(PID));
-
-    // String manipulation add /comm to /proc/<pid>
-    path.append("/comm");
-
-    // Specify the file to be opened
-    std::ifstream file(path);
-    std::string l;
-
-    // Iterate through and print all lines of the comm file
-    while(std::getline(file, l))
-    {
-        cout << l ;
-    }
-
-    file.close();
-}
 
 
 void displayRegions(int PID)
@@ -89,13 +107,14 @@ void checkAddress()
 {
 
 }
-int main()
+
+void searchValue(int PID)
 {
-    displayRegions(100018);
     // Get file descriptor
     // This pretty much gives the same as displayRegions,
     // but not relying on std::ifstream/std::ostream
     std::string path = "/proc/100018/mem";
+
     int fd = open(path.c_str(),O_RDONLY);
     cout << "fd = " << fd << endl;
 
@@ -121,6 +140,14 @@ int main()
 
     close(fd);
 
+
+}
+int main()
+{
+    //displayRegions(100018);
+
+
+    displayProcesses();
 
     return 0;
 }
