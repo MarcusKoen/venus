@@ -77,6 +77,7 @@ void searchValue(int PID, uint64_t beg, uint64_t end)
 
     path.append("/mem");
 
+
     int fd = open(path.c_str(),O_RDONLY);
     cout << "fd = " << fd << endl;
 
@@ -90,18 +91,33 @@ void searchValue(int PID, uint64_t beg, uint64_t end)
     ssize_t n = read(fd, buf.data(), count);
 
     int converted;
+
+    off_t a;
+
     for(int i = 0 ; i<count; i++)
     {
         std::memcpy(&converted, buf.data() + i, sizeof(converted));
         if(converted == 99)
         {
-            cout << static_cast<std::uintptr_t>(loc) + i << endl;
-            ssize_t m = write(fd, 9999, );
+            a = static_cast<std::uintptr_t>(loc) + i;
+            cout << "Integer 99 at address: " << a << endl;
 
         }
 
     }
+    /*
+    std::vector<uint64_t> towrite(1);
+    uint64_t t = 10101111110011001;
+    towrite[0]=t;
 
+    offset = lseek(fd, a, SEEK_SET);
+    ssize_t m = write(fd, towrite.data(), sizeof(t));
+
+    cout << m << endl;
+*/
+
+    int* ptr = reinterpret_cast<int*>(a);
+    *ptr = 42;
     close(fd);
 
 
